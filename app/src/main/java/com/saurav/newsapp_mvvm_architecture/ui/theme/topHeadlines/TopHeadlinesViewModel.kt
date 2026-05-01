@@ -8,6 +8,7 @@ import com.saurav.newsapp_mvvm_architecture.data.model.Country
 import com.saurav.newsapp_mvvm_architecture.data.repository.TopHeadLineRepository
 import com.saurav.newsapp_mvvm_architecture.di.module.BackgroundContext
 import com.saurav.newsapp_mvvm_architecture.ui.theme.base.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class TopHeadlinesViewModel @Inject constructor(
     private val repository: TopHeadLineRepository,
     @BackgroundContext private val dispatcher: CoroutineDispatcher
@@ -25,7 +27,7 @@ class TopHeadlinesViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<UiState<List<Article>>>(
         UiState.Initial
     )
-    private val uiState: StateFlow<UiState<List<Article>>> = _uiState
+     val uiState: StateFlow<UiState<List<Article>>> = _uiState
 
     fun loadTopHeadlines(country: String = "us") {
         viewModelScope.launch {

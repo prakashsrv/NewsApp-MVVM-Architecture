@@ -33,6 +33,24 @@ class ApplicationModule {
     @Singleton
     fun provideGson() : Gson = GsonBuilder().create()
 
+
+    @Provides
+    @Singleton
+    fun provideApiKeyInterceptor(): Interceptor = Interceptor { chain ->
+        val original = chain.request()
+        val originalHttpUrl = original.url
+
+        val url = originalHttpUrl.newBuilder()
+            .addQueryParameter("apiKey", "cdb9ced0dc974d0d9f24509631959334")
+            .build()
+
+        val requestBuilder = original.newBuilder()
+            .url(url)
+
+        val request = requestBuilder.build()
+        chain.proceed(request)
+    }
+
     @Provides
     @Singleton
     fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()

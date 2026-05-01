@@ -104,5 +104,8 @@ dependencies {
     androidTestImplementation(libs.mockito.android)
     androidTestImplementation(libs.arch.core.testing)
 
+    implementation("io.coil-kt:coil-compose:2.6.0") // For AsyncImage
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0") // For collectAsStateWithLifecycle
+
 
 }
